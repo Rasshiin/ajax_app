@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :basic_auth
 
   def index
     @posts = Post.order(id: "DESC")
@@ -11,4 +12,9 @@ class PostsController < ApplicationController
     post = Post.create(content: params[:content])
     render json:{ post: post}
   end
+
+  private
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |user
 end
